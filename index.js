@@ -4,19 +4,20 @@ const mongoose = require("mongoose")
 const dotenv = require("dotenv")
 const cors = require('cors')
 
-app.use(cors())
+const authRouter = require("./routes/auth")
 
 const port = 1000
 
 dotenv.config()
+app.use(express.json())
+app.use(cors())
 
-
-// mongoose.connect('mongodb+srv://nmmcjp:gksdud29@cluster0.rughgcz.mongodb.net/?retryWrites=true&w=majority', ()=>{
-//     console.log('MongoDB is connected')
-// })
 mongoose.connect(process.env.MONGODB_URL, ()=>{
     console.log('MongoDB is connected')
 })
+
+app.use("/api/auth", authRouter)
+
 
 app.listen(port, ()=>{
     console.log(`Backend is under port ${port}`)
