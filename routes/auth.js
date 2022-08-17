@@ -12,7 +12,10 @@ router.post("/register", async(req,res)=>{
             username:req.body.username,
         })
         if(existUser){
-            return res.status(400).json("The email is already registered")
+            // return 
+            return(
+                res.status(400).json("The email is already registered")
+            )
         }
         if(existUserName){
             return res.status(400).json('The user name is already registered')
@@ -32,12 +35,12 @@ router.post("/register", async(req,res)=>{
 })
 
 router.post("/login", async(req,res)=>{
+    const user = await User.findOne({email:req.body.email})
     try {
-        const user = await User.findOne({email:req.body.email})
         const comparedPassword = await bcrypt.compare(req.body.password, user.password)
-        if(!user){
-           return res.status(404).json("The email can not be founded")
-        }
+        // if(!user){
+        //    return res.status(404).json("The email can not be founded")
+        // }
         // if(req.body.password !== user.password){
         //     return res.status(400).json("the password is wrong")
         // }
@@ -46,6 +49,9 @@ router.post("/login", async(req,res)=>{
         }
         res.status(200).json("login succeed")
     } catch (error) {
+        if(!user){
+            return res.status(404).json("The email can not be founded")
+         }
         res.status(500).json(error)
     }
 })
