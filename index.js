@@ -5,6 +5,7 @@ const dotenv = require("dotenv")
 const cors = require('cors')
 
 const authRouter = require("./routes/auth")
+const userRouter = require("./routes/users")
 
 const port = 1000
 
@@ -17,6 +18,7 @@ mongoose.connect(process.env.MONGODB_URL, ()=>{
 })
 
 app.use("/api/auth", authRouter)
+app.use("/api/users", userRouter)
 
 
 app.listen(port, ()=>{
