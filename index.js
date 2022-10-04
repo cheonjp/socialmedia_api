@@ -6,6 +6,7 @@ const cors = require('cors')
 
 const authRouter = require("./routes/auth")
 const userRouter = require("./routes/users")
+const postRouter = require("./routes/posts")
 
 const port = 1000
 
@@ -19,6 +20,8 @@ mongoose.connect(process.env.MONGODB_URL, ()=>{
 
 app.use("/api/auth", authRouter)
 app.use("/api/users", userRouter)
+app.use("/api/posts", postRouter)
+
 
 
 app.listen(port, ()=>{
