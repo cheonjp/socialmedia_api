@@ -20,7 +20,7 @@ mongoose.connect(process.env.MONGODB_URL, ()=>{
     console.log('MongoDB is connected')
 })
 
-app.use("/images", express.static(path.join(__dirname,"public/images")))
+// app.use("/images", express.static(path.join(__dirname,"public/images")))
 
 const storage = multer.diskStorage({
     destination:(req,file,cb)=>{
