@@ -23,6 +23,22 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
+    job: {
+        type: String,
+        default: "N/A"
+    },
+    degree: {
+        type: String,
+        default: "N/A"
+    },
+    city: {
+        type: String,
+        default: "N/A"
+    },
+    status: {
+        type: String,
+        default: "N/A"
+    },
 
 },
     { timestamps: true }
