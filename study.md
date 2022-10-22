@@ -1,0 +1,5 @@
+--사진업로드시 e.target.files[0]으로 업로드파일 확인하기
+-- useContext
+--useReducer
+--new FormData()
+--useParams

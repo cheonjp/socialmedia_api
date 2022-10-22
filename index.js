@@ -12,41 +12,55 @@ const postRouter = require("./routes/posts")
 
 const port = 1000
 
+let postingTime
+let setPost = true
+
+
 dotenv.config()
 app.use(express.json())
 app.use(cors())
 
-mongoose.connect(process.env.MONGODB_URL, ()=>{
+mongoose.connect(process.env.MONGODB_URL, () => {
     console.log('MongoDB is connected')
 })
 
 // app.use("/images", express.static(path.join(__dirname,"public/images")))
 
 const storage = multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,"public/images")
+    destination: (req, file, cb) => {
+        cb(null, "public/images")
     },
-    filename: (req,file,cb)=>{
+    filename: (req, file, cb) => {
         // cb(null,req.body.name)
         // cb(null,req.body.name)
-        cb(null,file.originalname)
+        if(setPost===true){
+            postingTime = new Date().getTime()
+            setPost = false
+        }
+        cb(null, postingTime + "_" + file.originalname)
     },
 })
-
-
-const upload = multer({storage})
-app.post("/api/upload", upload.single("file"), (req,res)=>{
+const upload = multer({ storage })
+app.post("/api/upload", upload.array("file"), (req, res) => {
+    setPost = true
     try {
-        return res.status(200).json("File uploaded successfully.")
+        // return res.status(200).json("File uploaded successfully.")
+        return res.status(200).json(postingTime)
     } catch (err) {
         console.log(err)
     }
 })
 
+
+
+
+
+
+
 app.use("/api/auth", authRouter)
 app.use("/api/users", userRouter)
 app.use("/api/posts", postRouter)
 
-app.listen(port, ()=>{
+app.listen(port, () => {
     console.log(`Backend is under port ${port}`)
 })
