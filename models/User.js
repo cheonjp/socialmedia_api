@@ -39,6 +39,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: "N/A"
     },
+    friends:{
+        type:Array,
+        default:[]
+    }
 
 },
     { timestamps: true }

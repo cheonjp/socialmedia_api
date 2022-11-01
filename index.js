@@ -20,11 +20,16 @@ dotenv.config()
 app.use(express.json())
 app.use(cors())
 
+app.use("/images", express.static(path.join(__dirname,"/public/images")))
+
 mongoose.connect(process.env.MONGODB_URL, () => {
     console.log('MongoDB is connected')
 })
+// app.use("/images",express.static(path.join(__dirname,"/public/images")))
 
-// app.use("/images", express.static(path.join(__dirname,"public/images")))
+// app.use(express.static(path.join(__dirname,"/public/images")))
+app.use("/post",express.static(__dirname + "/public"))
+
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
