@@ -45,6 +45,7 @@ router.get("/timeline/:userId", async (req, res) => {
         })
         allPostsInfo.posts = timelinePosts
         allPostsInfo.friends = userFriends
+        console.log(allPostsInfo.posts)
         // res.status(200).json(timelinePosts)
         res.status(200).json(allPostsInfo)
     } catch (error) {
